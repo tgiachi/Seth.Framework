@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seth.Ui", "Seth.Ui\Seth.Ui.csproj", "{5F8346B2-D70C-4FA5-9A46-C96F699CA12A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seth.Api", "Seth.Api\Seth.Api.csproj", "{928EF82A-46B6-4980-B527-111B5D91351D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F8346B2-D70C-4FA5-9A46-C96F699CA12A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F8346B2-D70C-4FA5-9A46-C96F699CA12A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F8346B2-D70C-4FA5-9A46-C96F699CA12A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F8346B2-D70C-4FA5-9A46-C96F699CA12A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{928EF82A-46B6-4980-B527-111B5D91351D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{928EF82A-46B6-4980-B527-111B5D91351D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{928EF82A-46B6-4980-B527-111B5D91351D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{928EF82A-46B6-4980-B527-111B5D91351D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {319B18FF-19D5-4BB6-A15A-B0829C251D46}
+	EndGlobalSection
+EndGlobal
