@@ -1,4 +1,5 @@
 using Airsoft.Modula.XRay.Core.Utils;
+using Autofac;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -6,6 +7,7 @@ using Avalonia.ReactiveUI;
 using Avalonia.Threading;
 using ReactiveUI;
 using Serilog;
+using Seth.Api.Interfaces.Services;
 using Seth.Api.Manager;
 using Seth.Ui.ViewModels;
 using Seth.Ui.Views;
@@ -25,9 +27,9 @@ namespace Seth.Ui
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
-                .WriteTo.Console(outputTemplate:  "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
+                .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
                 .WriteTo.Debug()
-                .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
         }
 
@@ -35,7 +37,7 @@ namespace Seth.Ui
         {
             RegisterLogger();
             var manager = new SethManager();
-           
+
             var builder = manager.ScanForServices();
             AutofacDependencyResolver resolver = new(builder);
             Locator.SetLocator(resolver);
@@ -44,7 +46,7 @@ namespace Seth.Ui
             builder.RegisterSelf();
             Locator.CurrentMutable.InitializeSplat();
             Locator.CurrentMutable.InitializeReactiveUI();
-       
+
             Locator.CurrentMutable.RegisterConstant(new AvaloniaActivationForViewFetcher(),
                 typeof(IActivationForViewFetcher));
             Locator.CurrentMutable.RegisterConstant(new AutoDataTemplateBindingHook(), typeof(IPropertyBindingHook));
@@ -57,6 +59,8 @@ namespace Seth.Ui
                     DataContext = new MainWindowViewModel(),
                 };
             }
+
+            container.Resolve(typeof(IConfigService));
 
             base.OnFrameworkInitializationCompleted();
         }
