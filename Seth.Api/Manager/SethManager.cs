@@ -32,7 +32,8 @@ namespace Seth.Api.Manager
 
                 registerChain = AssemblyUtils.GetInterfaceOfType(srv) == null
                     ? registerChain.AsSelf()
-                    : registerChain.As(AssemblyUtils.GetInterfaceOfType(srv));
+                    : registerChain.As(AssemblyUtils.GetInterfaceOfType(srv)).As(srv);
+
                 registerChain = attribute.ServiceType == ServiceType.Singleton
                     ? registerChain.SingleInstance()
                     : registerChain.InstancePerRequest();

@@ -20,10 +20,14 @@ namespace Seth.Ui.Services
     public class ConfigService : IConfigService
     {
         public ISethConfig Config { get; set; }
+        public string RootDirectory { get; set; }
+
         private readonly ILogger _logger = Log.Logger;
         public ConfigService()
         {
-            var configFile = Path.Join(EnvVariables.SethConfigPathEnv, "seth.json");
+            RootDirectory = EnvVariables.SethConfigPathEnv == "" ? Directory.GetCurrentDirectory() : EnvVariables.SethConfigPathEnv;
+            _logger.Information("Root directory is: {RootDirectory}", RootDirectory);
+            var configFile = Path.Join(EnvVariables.SethRootPathEnv, EnvVariables.SethConfigPathEnv, "seth.json");
             _logger.Information("Loading config file {Config}", configFile);
             Config = new ConfigurationBuilder<ISethConfig>().UseJsonFile(configFile).Build();
 

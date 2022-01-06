@@ -17,9 +17,13 @@ namespace Seth.Api.Attributes
     {
         public ServiceType ServiceType { get; set; }
 
-        public SethServiceAttribute(ServiceType serviceType = ServiceType.Singleton)
+        public bool AutoStart { get; set; }
+
+        public SethServiceAttribute(ServiceType serviceType = ServiceType.Singleton, bool autoStart = false)
         {
             ServiceType = serviceType;
+            AutoStart = autoStart;
+
         }
 
     }

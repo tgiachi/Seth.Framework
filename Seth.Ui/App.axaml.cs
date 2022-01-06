@@ -1,5 +1,7 @@
+using System.Reflection;
 using Airsoft.Modula.XRay.Core.Utils;
 using Autofac;
+using AutofacSerilogIntegration;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -7,8 +9,10 @@ using Avalonia.ReactiveUI;
 using Avalonia.Threading;
 using ReactiveUI;
 using Serilog;
+using Seth.Api.Attributes;
 using Seth.Api.Interfaces.Services;
 using Seth.Api.Manager;
+using Seth.Api.Utils;
 using Seth.Ui.ViewModels;
 using Seth.Ui.Views;
 using Splat;
@@ -41,7 +45,9 @@ namespace Seth.Ui
             var builder = manager.ScanForServices();
             AutofacDependencyResolver resolver = new(builder);
             Locator.SetLocator(resolver);
+            builder.RegisterLogger();
             var container = builder.Build();
+            
             AutofacMethodExt.Instance = container;
             builder.RegisterSelf();
             Locator.CurrentMutable.InitializeSplat();
@@ -61,6 +67,16 @@ namespace Seth.Ui
             }
 
             container.Resolve(typeof(IConfigService));
+
+            AssemblyUtils.GetAttribute<SethServiceAttribute>().ForEach(s =>
+            {
+                var attr = s.GetCustomAttribute<SethServiceAttribute>();
+                if (attr.AutoStart)
+                {
+                    container.Resolve(s);
+                }
+
+            });
 
             base.OnFrameworkInitializationCompleted();
         }
