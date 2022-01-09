@@ -18,6 +18,7 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.11" />
     <PackageReference Include="Config.Net.Json" Version="4.19.0" />
     <PackageReference Include="Jint" Version="3.0.0-beta-2037" />
+    <PackageReference Include="ReactiveUI.Fody" Version="17.1.17" />
     <PackageReference Include="Redbus" Version="1.0.8" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />

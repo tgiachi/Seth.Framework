@@ -39,6 +39,19 @@ namespace Seth.Api.Manager
                     : registerChain.InstancePerRequest();
             });
 
+            logger.Information("Scanning for windows");
+            var windows = AssemblyUtils.GetAttribute<ViewModelAttribute>();
+
+            logger.Information("Found {Service} windows", windows.Count);
+            windows.ForEach(v =>
+            {
+                var attribute = v.GetCustomAttribute<ViewModelAttribute>();
+                _containerBuilder.RegisterType(v).AsSelf().InstancePerLifetimeScope();
+                _containerBuilder.RegisterType(attribute.View).AsSelf().InstancePerLifetimeScope();
+                logger.Information(
+                    $"Registering window {v.Name} [view: {attribute.View.Name}]");
+            });
+
 
 
             return _containerBuilder;

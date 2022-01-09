@@ -46,10 +46,11 @@ namespace Seth.Ui
             AutofacDependencyResolver resolver = new(builder);
             Locator.SetLocator(resolver);
             builder.RegisterLogger();
+            builder.RegisterSelf();
             var container = builder.Build();
             
             AutofacMethodExt.Instance = container;
-            builder.RegisterSelf();
+          
             Locator.CurrentMutable.InitializeSplat();
             Locator.CurrentMutable.InitializeReactiveUI();
 
@@ -57,13 +58,13 @@ namespace Seth.Ui
                 typeof(IActivationForViewFetcher));
             Locator.CurrentMutable.RegisterConstant(new AutoDataTemplateBindingHook(), typeof(IPropertyBindingHook));
             RxApp.MainThreadScheduler = AvaloniaScheduler.Instance;
+            container.Resolve<IWindowService>().CreateMainWindow(new MainWindow(), new MainWindowViewModel());
+
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow
-                {
-                    DataContext = new MainWindowViewModel(),
-                };
+                
+                desktop.MainWindow = container.Resolve<IWindowService>().MainWindow;
             }
 
             container.Resolve(typeof(IConfigService));
@@ -77,6 +78,8 @@ namespace Seth.Ui
                 }
 
             });
+            container.Resolve<IWindowService>().BuildAndShowWindow<BootWindowViewModel>();
+
 
             base.OnFrameworkInitializationCompleted();
         }

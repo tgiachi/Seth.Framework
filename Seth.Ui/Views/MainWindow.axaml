@@ -4,14 +4,40 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Width="800" Height="480"
         x:Class="Seth.Ui.Views.MainWindow"
+        WindowStartupLocation="CenterScreen"
         Icon="/Assets/avalonia-logo.ico"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
         Title="Seth.Ui">
 
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
+  <Design.DataContext>
+    <vm:MainWindowViewModel/>
+  </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+  <Grid Margin="3,2,0,0">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="5*"/>
+      <RowDefinition Height="95*">
+
+      </RowDefinition>
+    </Grid.RowDefinitions>
+    <Grid Background="White" >
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="650" />
+        <ColumnDefinition Width="170"/>
+      </Grid.ColumnDefinitions>
+      <StackPanel  VerticalAlignment="Center" Grid.Column="0" Orientation="Horizontal">
+
+        <TextBlock Foreground="Black"  Text="{Binding Path=WindowTitle, Mode=TwoWay}"/>
+      </StackPanel>
+      <StackPanel  VerticalAlignment="Center" Grid.Column="1" Orientation="Horizontal">
+        <TextBlock Foreground="Black" Text="{Binding DebugText}" />
+      </StackPanel>
+    </Grid>
+      <ContentPresenter Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="CntPresenter" />
+  </Grid>
 
 </Window>
