@@ -18,7 +18,9 @@
 
      <ScrollViewer HorizontalAlignment="Stretch" Name="Scoller" VerticalScrollBarVisibility="Hidden" >
          <StackPanel >
-             <ItemsControl Items="{Binding ConsoleOutput}">
+             <ItemsControl  Items="{Binding ConsoleOutput}"
+                             
+                            >
                  <ItemsControl.ItemTemplate>
                      <DataTemplate>
                          <TextBlock Background="{Binding Background}" Text="{Binding Path=Text  }" Foreground="{Binding Foreground}" FontFamily="Consolas"/>
@@ -27,6 +29,6 @@
              </ItemsControl>
          </StackPanel>
      </ScrollViewer>
-     <ProgressBar Grid.Row="1" IsIndeterminate="False" Maximum="100" Value="30"  />
+     <ProgressBar Grid.Row="1" IsIndeterminate="False" Maximum="100" Value="{Binding ProgressBarValue}"  />
  </Grid>
 </UserControl>
