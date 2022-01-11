@@ -10,5 +10,7 @@ namespace Seth.Api.Interfaces.Services
     public interface IScriptEngineService : ISethService
     {
         string ScriptsDirectory { get; set; }
+
+        void LoadScriptFile(string script);
     }
 }

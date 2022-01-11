@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Jint;
+using Jint.Native;
 using Serilog;
 using Serilog.Core;
 using Seth.Api.Attributes;
@@ -38,7 +39,26 @@ namespace Seth.Ui.Services
             }
 
             InitializeEngine();
+            BuildScriptClasses();
             ScanScripts();
+        }
+
+        private void BuildScriptClasses()
+        {
+            _engine = _engine.SetValue("include", new Func<string, JsValue>(IncludeFile));
+            _engine = _engine.SetValue("log", new Action<string>(ConsoleLog));
+
+        }
+
+        private JsValue IncludeFile(string fileName)
+        {
+            var res = _engine.Evaluate(File.ReadAllText(Path.Join(ScriptsDirectory, fileName)));
+            return res;
+        }
+
+        private void ConsoleLog(string text)
+        {
+            _logger.Information($"[ScriptEngine] {text}");
         }
 
         private void InitializeEngine()
@@ -64,8 +84,8 @@ namespace Seth.Ui.Services
             }
             catch (Exception ex)
             {
-                _logger.Error("Error during load script: {ex}", ex.Message);
-                _eventBusService.SendBootLog($"Executing scripts {Path.GetFileName(script)}: {ex.Message}", BootLogType.Error);
+                _logger.Error("Error during load script: {ex} => {stack}", ex.Message, ex.StackTrace);
+                _eventBusService.SendBootLog($"Executing scripts {Path.GetFileName(script)}: {ex.Message} => {ex.StackTrace}", BootLogType.Error);
             }
         }
 
