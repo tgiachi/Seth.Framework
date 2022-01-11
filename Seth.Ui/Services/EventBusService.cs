@@ -22,7 +22,9 @@ namespace Seth.Ui.Services
 
         public void PublishEvent<TEntity>(TEntity entity)
         {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             _logger.Debug($"Sending event {entity.GetType().Name}");
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             _eventBus.PublishAsync(new PayloadEvent<TEntity>(entity));
         }
 

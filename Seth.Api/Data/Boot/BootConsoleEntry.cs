@@ -9,7 +9,9 @@ namespace Seth.Api.Data.Boot
 {
     public class BootConsoleEntry
     {
+#pragma warning disable CS8618 // Non-nullable property 'Text' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.
         public string Text { get; set; }
+#pragma warning restore CS8618 // Non-nullable property 'Text' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.
 
         public Brush Foreground { get; set; } = new SolidColorBrush(Colors.White);
 

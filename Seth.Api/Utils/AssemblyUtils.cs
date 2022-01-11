@@ -33,11 +33,15 @@ namespace Seth.Api.Utils
         {
             try
             {
+#pragma warning disable CS8603 // Possible null reference return.
                 return type.GetInterfaces()[0].Name == $"I{type.Name}" ? type.GetInterfaces()[0] : null;
+#pragma warning restore CS8603 // Possible null reference return.
             }
             catch
             {
+#pragma warning disable CS8603 // Possible null reference return.
                 return null;
+#pragma warning restore CS8603 // Possible null reference return.
             }
         }
 
@@ -66,7 +70,9 @@ namespace Seth.Api.Utils
                     return type;
             }
 
+#pragma warning disable CS8603 // Possible null reference return.
             return null;
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         /// <summary>
@@ -121,7 +127,9 @@ namespace Seth.Api.Utils
                 //var path2 = Uri.UnescapeDataString(uri.Path);
                 var path = Path.GetDirectoryName(codeBase);
 
+#pragma warning disable CS8604 // Possible null reference argument for parameter 'path' in 'string[] Directory.GetFiles(string path, string searchPattern)'.
                 var files = Directory.GetFiles(path, "*.dll");
+#pragma warning restore CS8604 // Possible null reference argument for parameter 'path' in 'string[] Directory.GetFiles(string path, string searchPattern)'.
                 foreach (var file in files)
                     try
                     {
@@ -153,7 +161,7 @@ namespace Seth.Api.Utils
         /// <param name="filter"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static List<Type> ScanAssembly(Type attribute, string filter = "*.dll", string path = null)
+        public static List<Type> ScanAssembly(Type attribute, string filter = "*.dll", string? path = null)
         {
             var result = new List<Type>();
 
@@ -204,7 +212,9 @@ namespace Seth.Api.Utils
         public static string GetVersion()
         {
             var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+#pragma warning disable CS8603 // Possible null reference return.
             return fvi.ProductVersion;
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         /// <summary>
@@ -214,7 +224,9 @@ namespace Seth.Api.Utils
         public static string GetProductName()
         {
             var fvi = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+#pragma warning disable CS8603 // Possible null reference return.
             return fvi.ProductName;
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         /// <summary>

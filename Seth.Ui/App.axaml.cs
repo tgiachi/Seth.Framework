@@ -15,6 +15,7 @@ using Seth.Api.Manager;
 using Seth.Api.Utils;
 using Seth.Ui.ViewModels;
 using Seth.Ui.Views;
+using Seth.Ui.Windows;
 using Splat;
 using Splat.Autofac;
 
@@ -48,9 +49,9 @@ namespace Seth.Ui
             builder.RegisterLogger();
             builder.RegisterSelf();
             var container = builder.Build();
-            
+
             AutofacMethodExt.Instance = container;
-          
+
             Locator.CurrentMutable.InitializeSplat();
             Locator.CurrentMutable.InitializeReactiveUI();
 
@@ -63,22 +64,24 @@ namespace Seth.Ui
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                
                 desktop.MainWindow = container.Resolve<IWindowService>().MainWindow;
+
             }
 
             container.Resolve(typeof(IConfigService));
 
+            container.Resolve<IWindowService>().BuildAndShowWindow<BootWindowViewModel>();
+
             AssemblyUtils.GetAttribute<SethServiceAttribute>().ForEach(s =>
             {
                 var attr = s.GetCustomAttribute<SethServiceAttribute>();
-                if (attr.AutoStart)
+                if (attr is {AutoStart: true})
                 {
                     container.Resolve(s);
                 }
 
             });
-            container.Resolve<IWindowService>().BuildAndShowWindow<BootWindowViewModel>();
+          
 
 
             base.OnFrameworkInitializationCompleted();

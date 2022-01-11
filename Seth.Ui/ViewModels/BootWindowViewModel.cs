@@ -37,7 +37,11 @@ namespace Seth.Ui.ViewModels
         public ObservableCollection<BootConsoleEntry> ConsoleOutput { get; set; } = new();
 
 
+#pragma warning disable CS8618 // Non-nullable property 'Scroller' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.
+#pragma warning disable CS8618 // Non-nullable property 'Title' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.
         public BootWindowViewModel(IEventBusService eventBusService)
+#pragma warning restore CS8618 // Non-nullable property 'Title' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.
+#pragma warning restore CS8618 // Non-nullable property 'Scroller' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.
         {
             _eventBusService = eventBusService;
             _bootLogSubscriptionToken = _eventBusService.SubscribeEvent<BootLogEvent>(OnBootLogEvent);
@@ -71,7 +75,7 @@ namespace Seth.Ui.ViewModels
 
                ConsoleOutput.Add(new BootConsoleEntry()
                {
-                   Text = text,
+                   Text = $"[{DateTime.Now:T}] - {text}",
                    Background = new SolidColorBrush(background),
                    Foreground = new SolidColorBrush(foreground)
                });

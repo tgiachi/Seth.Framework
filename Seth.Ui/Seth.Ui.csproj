@@ -7,11 +7,18 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
+    <AvaloniaXaml Remove="Assets\Styles\Default.axaml" />
+    <AvaloniaXaml Remove="Assets\Styles\DefaultStyle.axaml" />
     <None Remove=".gitignore" />
+    <None Remove="Assets\Fonts\Hack-Bold.ttf" />
+    <None Remove="Assets\Fonts\Hack-BoldItalic.ttf" />
+    <None Remove="Assets\Fonts\Hack-Italic.ttf" />
+    <None Remove="Assets\Fonts\Hack-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutofacSerilogIntegration" Version="5.0.0" />
     <PackageReference Include="Avalonia" Version="0.10.11" />
+    <PackageReference Include="Avalonia.AvaloniaEdit" Version="0.10.9" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.11" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.11" />
@@ -27,5 +34,13 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Seth.Api\Seth.Api.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Update="Assets\Styles\Default.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Update="Assets\Styles\DefaultStyle.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
   </ItemGroup>
 </Project>

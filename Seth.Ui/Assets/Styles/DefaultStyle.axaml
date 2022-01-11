@@ -1,0 +1,46 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource DefaultUiFont}" />
+    </Style>
+
+    <Style Selector="TextBlock.MenuStandard">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="60" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="Black" />
+
+    </Style>
+    <Style Selector="TextBlock.MenuSelected">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="60" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Background" Value="White" />
+
+    </Style>
+
+    <Style Selector="TextBlock.UiTextBlock">
+        <Setter Property="FontSize" Value="40" />
+        <Setter Property="FontFamily" Value="{StaticResource DefaultUiFont}"/>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Grid.WindowPanelGrid">
+        <Setter Property="Background" Value="{StaticResource DefaultBackgroundColor}"/>
+    </Style>
+    <Style Selector="StackPanel.WindowPanel">
+        <Setter Property="Background" Value="{StaticResource DefaultBackgroundColor}"/>
+    </Style>
+    <Style Selector="TextBlock.TitleStyle">
+        <Setter Property="FontFamily" Value="{StaticResource DefaultUiFont}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+</Styles>

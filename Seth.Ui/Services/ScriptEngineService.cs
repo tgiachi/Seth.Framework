@@ -8,7 +8,9 @@ using Jint;
 using Serilog;
 using Serilog.Core;
 using Seth.Api.Attributes;
+using Seth.Api.Data.Events;
 using Seth.Api.Interfaces.Services;
+using Seth.Ui.MethodEx;
 
 namespace Seth.Ui.Services
 {
@@ -18,12 +20,16 @@ namespace Seth.Ui.Services
         private Engine _engine;
         private readonly ILogger _logger;
         private readonly IConfigService _configService;
+        private readonly IEventBusService _eventBusService;
         public string ScriptsDirectory { get; set; }
 
-        public ScriptEngineService(ILogger logger, IConfigService configService)
+
+        public ScriptEngineService(ILogger logger, IConfigService configService, IEventBusService eventBusService)
+
         {
             _logger = logger;
             _configService = configService;
+            _eventBusService = eventBusService;
             ScriptsDirectory = Path.Join(_configService.RootDirectory, "scripts");
             logger.Information("Scripts directory: {Dir}", ScriptsDirectory);
             if (!Directory.Exists(ScriptsDirectory))
@@ -44,18 +50,22 @@ namespace Seth.Ui.Services
         {
             var scripts = Directory.GetFiles(ScriptsDirectory, "*.js", SearchOption.AllDirectories);
             _logger.Information("Found {Scripts} scripts to load", scripts.Length);
-            scripts.ToList().ForEach(LoadScript);
+            _eventBusService.SendBootLog($"Found {scripts.Length} scripts to load", BootLogType.Info);
+            scripts.ToList().ForEach(LoadScriptFile);
         }
 
-        public void LoadScript(string script)
+        public void LoadScriptFile(string script)
         {
             try
             {
-                _engine = _engine.Execute(script);
+                _eventBusService.SendBootLog($"Executing script {Path.GetFileName(script)}", BootLogType.Info);
+                _engine = _engine.Execute(File.ReadAllText(script));
+                _eventBusService.SendBootLog($"Script: {Path.GetFileName(script)}... OK", BootLogType.Info);
             }
             catch (Exception ex)
             {
                 _logger.Error("Error during load script: {ex}", ex.Message);
+                _eventBusService.SendBootLog($"Executing scripts {Path.GetFileName(script)}: {ex.Message}", BootLogType.Error);
             }
         }
 

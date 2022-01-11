@@ -13,31 +13,32 @@
         ExtendClientAreaTitleBarHeightHint="-1"
         Title="Seth.Ui">
 
+  <Window.Styles>
+    <StyleInclude Source="/Assets/Styles/DefaultStyle.axaml" />
+  </Window.Styles>
+
   <Design.DataContext>
     <vm:MainWindowViewModel/>
   </Design.DataContext>
 
-  <Grid Margin="3,2,0,0">
+  <Grid Margin="10">
     <Grid.RowDefinitions>
       <RowDefinition Height="5*"/>
-      <RowDefinition Height="95*">
-
-      </RowDefinition>
+      <RowDefinition Height="95*"/>
     </Grid.RowDefinitions>
-    <Grid Background="White" >
+    <Grid  Classes="WindowPanelGrid" >
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="650" />
         <ColumnDefinition Width="170"/>
       </Grid.ColumnDefinitions>
-      <StackPanel  VerticalAlignment="Center" Grid.Column="0" Orientation="Horizontal">
-
-        <TextBlock Foreground="Black"  Text="{Binding Path=WindowTitle, Mode=TwoWay}"/>
+      <StackPanel Classes="WindowPanel" VerticalAlignment="Center" Grid.Column="0" Orientation="Horizontal">
+          <TextBlock Margin="3" Classes="TitleStyle" Foreground="Black"  Text="{Binding Path=WindowTitle, Mode=TwoWay}"/>
       </StackPanel>
       <StackPanel  VerticalAlignment="Center" Grid.Column="1" Orientation="Horizontal">
         <TextBlock Foreground="Black" Text="{Binding DebugText}" />
       </StackPanel>
     </Grid>
-      <ContentPresenter Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="CntPresenter" />
+    <ContentPresenter Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="CntPresenter" />
   </Grid>
 
 </Window>
